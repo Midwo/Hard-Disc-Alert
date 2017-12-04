@@ -21,7 +21,39 @@ namespace Hard_Drive_Alert
             notifyIcon1.ShowBalloonTip(1000);
             label2.Text = "";
             timer1.Start();
-            
+            Microsoft.Win32.RegistryKey key;
+            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("MD_DISC_ALERT_DATE");
+
+  
+            try
+            {
+                if (key.GetValue("Hour").ToString() != string.Empty || key.GetValue("Minute").ToString() != string.Empty || key.GetValue("Second").ToString() != string.Empty)
+                {
+                    comboBox2.SelectedItem = key.GetValue("Hour");
+                    comboBox3.SelectedItem = key.GetValue("Minute");
+                    comboBox4.SelectedItem = key.GetValue("Second");
+                    numericUpDown2.Value = Convert.ToUInt32(key.GetValue("NumericMinute"));
+                }
+                else
+                {
+                    comboBox2.SelectedItem = "00";
+                    comboBox3.SelectedItem = "00";
+                    comboBox4.SelectedItem = "00";
+                    numericUpDown2.Value = 1;
+                }
+           
+                }
+            catch
+            {
+                comboBox2.SelectedItem = "00";
+                comboBox3.SelectedItem = "00";
+                comboBox4.SelectedItem = "00";
+                numericUpDown2.Value = 1;
+            }
+            key.Close();
+
+        
+
             DriveInfo[] iDrvs = DriveInfo.GetDrives();
             foreach (var Drv in iDrvs)
             {
@@ -29,15 +61,23 @@ namespace Hard_Drive_Alert
                 {
                     listBox1.Items.Add("Disc name: " + Drv.Name + " available: " + (Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024).ToString("n2") +
                         " GB with " + (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024).ToString("n2") + " GB, this is: "
-                        + Drv.TotalSize / Drv.AvailableFreeSpace + "%");
+                        + (((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024))*100).ToString("n2") + "%");
                     comboBox1.Items.Add(Drv.Name);
+                    AllAvailableFreeSpace += ((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024));
+                    AllTotalSize += (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024);
                 }
             }
-           
+
+            this.chart1.Series["FreeSize"].Points.AddXY("Total Available", ((Convert.ToDecimal(AllAvailableFreeSpace) / (Convert.ToDecimal(AllTotalSize)))));
+            this.chart1.Series["FreeSize"].Points.AddXY("Total Occupied", ((((Convert.ToDecimal(AllTotalSize) ) - (Convert.ToDecimal(AllAvailableFreeSpace))) / (Convert.ToDecimal(AllTotalSize)))));
 
         }
+        Decimal AllAvailableFreeSpace;
+        Decimal AllTotalSize;
         Dictionary<string, int> DiscNameAndPercent = new Dictionary<string, int>();
         bool ActiveButton = false;
+        DateTime DateMonit;
+        string combineCombobox;
 
         private void menuToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -97,10 +137,7 @@ namespace Hard_Drive_Alert
             
         }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -111,33 +148,124 @@ namespace Hard_Drive_Alert
 
         private void button3_Click(object sender, EventArgs e)
         {
-         
+            DateMonit = DateTime.Now.AddSeconds(Convert.ToDouble(numericUpDown2.Value));
             button3.Text = "Monitored";
             ActiveButton = true;
+            combineCombobox = comboBox2.SelectedItem + ":" + comboBox3.SelectedItem + ":" + comboBox4.SelectedItem;
+
+
+            Microsoft.Win32.RegistryKey key;
+            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("MD_DISC_ALERT_DATE");
+            key.SetValue("Hour", comboBox2.SelectedItem);
+            key.SetValue("Minute", comboBox3.SelectedItem);
+            key.SetValue("Second", comboBox4.SelectedItem);
+            key.SetValue("NumericMinute", numericUpDown2.Value);
+            key.Close();
+
+        
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //label2.Text = System.DateTime.Now.ToLongTimeString();
+            //if (ActiveButton == true)
+            //{
+            //    if (System.DateTime.Now.ToLongTimeString() == textBox1.Text)
+            //    {
+
+            //        MessageBox.Show("To small hard disc");
+            //    }
+            //}
+
+
+            //label2.Text = DateTime.Now.ToLongTimeString();
+            //if (ActiveButton == true)
+            //{
+            //    if (DateMonit <= DateTime.Now)
+            //    {
+            //        DateMonit = DateTime.Now.AddSeconds(Convert.ToDouble(numericUpDown2.Value));
+            //        MessageBox.Show("To small hard disc");
+
+
+            //    }
+            //}
+
+           
+            
             label2.Text = System.DateTime.Now.ToLongTimeString();
             if (ActiveButton == true)
             {
-                if (System.DateTime.Now.ToLongTimeString() == textBox1.Text)
+                if (System.DateTime.Now.ToLongTimeString() == combineCombobox)
                 {
 
                     MessageBox.Show("To small hard disc");
                 }
             }
-          
+
+
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+
+        private void emailConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "[^0-9:]"))
+            EditConfigurations m = new EditConfigurations();
+            m.Show();
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox5.SelectedIndex == 0)
             {
-                MessageBox.Show("Tylko liczby od 0-9 i :");
-                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
+                comboBox2.Enabled = true;
+                comboBox3.Enabled = true;
+                comboBox4.Enabled = true;
+                label3.Enabled = true;
+                label4.Enabled = true;
+                label5.Enabled = true;
+                numericUpDown2.Enabled = false;
+                label6.Enabled = false;
+                label7.Enabled = false;
+
             }
+            else if (comboBox5.SelectedIndex == 1)
+            {
+                comboBox2.Enabled = false;
+                comboBox3.Enabled = false;
+                comboBox4.Enabled = false;
+                numericUpDown2.Enabled = true;
+                label6.Enabled = true;
+                label7.Enabled = true;
+                label3.Enabled = false;
+                label4.Enabled = false;
+                label5.Enabled = false;
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.chart1.Series["FreeSize"].Points.Clear();
+          
+
+            DriveInfo[] iDrvs = DriveInfo.GetDrives();
+            foreach (var Drv1 in iDrvs)
+            {
+                if (Drv1.IsReady)
+                {
+                    if (Drv1.Name == comboBox1.SelectedItem.ToString())
+                    {
+                       
+                        this.chart1.Series["FreeSize"].Points.AddXY("Available size", (((Convert.ToDecimal(Drv1.AvailableFreeSpace) / 1024 / 1024 / 1024)/ (Convert.ToDecimal(Drv1.TotalSize) / 1024 / 1024 / 1024))));
+                        this.chart1.Series["FreeSize"].Points.AddXY("Occupied size", ((((Convert.ToDecimal(Drv1.TotalSize) / 1024 / 1024 / 1024) - (Convert.ToDecimal(Drv1.AvailableFreeSpace) / 1024 / 1024 / 1024))/(Convert.ToDecimal(Drv1.TotalSize) / 1024 / 1024 / 1024))));
+
+                    }
+
+                }
+            }
+
+   
+
+         
         }
     }
 }
