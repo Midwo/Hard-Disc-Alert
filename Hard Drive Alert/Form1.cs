@@ -161,7 +161,9 @@ namespace Hard_Drive_Alert
             key.SetValue("Second", comboBox4.SelectedItem);
             key.SetValue("NumericMinute", numericUpDown2.Value);
             key.Close();
-
+            EmailConf xy = new EmailConf();
+           
+            MessageBox.Show(xy.StringListEmail());
         
         }
 
@@ -266,6 +268,12 @@ namespace Hard_Drive_Alert
    
 
          
+        }
+
+        private void listEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListEmail m = new ListEmail();
+            m.Show();
         }
     }
 }
