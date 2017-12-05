@@ -288,8 +288,7 @@
             "20",
             "21",
             "22",
-            "23",
-            "24"});
+            "23"});
             this.comboBox2.Location = new System.Drawing.Point(160, 40);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(42, 21);
@@ -359,8 +358,7 @@
             "56",
             "57",
             "58",
-            "59",
-            "60"});
+            "59"});
             this.comboBox3.Location = new System.Drawing.Point(208, 40);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(42, 21);
@@ -430,8 +428,7 @@
             "56",
             "57",
             "58",
-            "59",
-            "60"});
+            "59"});
             this.comboBox4.Location = new System.Drawing.Point(256, 40);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(42, 21);
