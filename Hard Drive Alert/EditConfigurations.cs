@@ -48,7 +48,6 @@ namespace Hard_Drive_Alert
                 tbConfPort.Text = "Port number";
             }
             key.Close();
-
         }
 
         private void bSave_Click(object sender, EventArgs e)

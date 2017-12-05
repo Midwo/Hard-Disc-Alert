@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListEmail));
-            this.bzapisz = new System.Windows.Forms.Button();
-            this.bzaladujliste = new System.Windows.Forms.Button();
-            this.busunpozycje = new System.Windows.Forms.Button();
+            this.bSave = new System.Windows.Forms.Button();
+            this.bLoadList = new System.Windows.Forms.Button();
+            this.bDelete = new System.Windows.Forms.Button();
             this.gbdodajkontakt = new System.Windows.Forms.GroupBox();
-            this.bdodajemail = new System.Windows.Forms.Button();
-            this.tbdodajemial = new System.Windows.Forms.TextBox();
-            this.ldodajemail = new System.Windows.Forms.Label();
-            this.lblista = new System.Windows.Forms.ListBox();
+            this.bAddEmail = new System.Windows.Forms.Button();
+            this.tbAddEmail = new System.Windows.Forms.TextBox();
+            this.lAddEmail = new System.Windows.Forms.Label();
+            this.lbList = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.pbstopka = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -44,44 +44,44 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbstopka)).BeginInit();
             this.SuspendLayout();
             // 
-            // bzapisz
+            // bSave
             // 
-            this.bzapisz.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.bzapisz.Location = new System.Drawing.Point(202, 125);
-            this.bzapisz.Name = "bzapisz";
-            this.bzapisz.Size = new System.Drawing.Size(70, 43);
-            this.bzapisz.TabIndex = 14;
-            this.bzapisz.Text = "Save";
-            this.bzapisz.UseVisualStyleBackColor = true;
-            this.bzapisz.Click += new System.EventHandler(this.bzapisz_Click);
+            this.bSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.bSave.Location = new System.Drawing.Point(202, 125);
+            this.bSave.Name = "bSave";
+            this.bSave.Size = new System.Drawing.Size(70, 43);
+            this.bSave.TabIndex = 14;
+            this.bSave.Text = "Save";
+            this.bSave.UseVisualStyleBackColor = true;
+            this.bSave.Click += new System.EventHandler(this.bSave_Click);
             // 
-            // bzaladujliste
+            // bLoadList
             // 
-            this.bzaladujliste.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.bzaladujliste.Location = new System.Drawing.Point(202, 76);
-            this.bzaladujliste.Name = "bzaladujliste";
-            this.bzaladujliste.Size = new System.Drawing.Size(70, 43);
-            this.bzaladujliste.TabIndex = 13;
-            this.bzaladujliste.Text = "Load List";
-            this.bzaladujliste.UseVisualStyleBackColor = true;
-            this.bzaladujliste.Click += new System.EventHandler(this.bzaladujliste_Click);
+            this.bLoadList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.bLoadList.Location = new System.Drawing.Point(202, 76);
+            this.bLoadList.Name = "bLoadList";
+            this.bLoadList.Size = new System.Drawing.Size(70, 43);
+            this.bLoadList.TabIndex = 13;
+            this.bLoadList.Text = "Load List";
+            this.bLoadList.UseVisualStyleBackColor = true;
+            this.bLoadList.Click += new System.EventHandler(this.bLoadList_Click);
             // 
-            // busunpozycje
+            // bDelete
             // 
-            this.busunpozycje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.busunpozycje.Location = new System.Drawing.Point(202, 27);
-            this.busunpozycje.Name = "busunpozycje";
-            this.busunpozycje.Size = new System.Drawing.Size(70, 43);
-            this.busunpozycje.TabIndex = 12;
-            this.busunpozycje.Text = "Delete record";
-            this.busunpozycje.UseVisualStyleBackColor = true;
-            this.busunpozycje.Click += new System.EventHandler(this.busunpozycje_Click);
+            this.bDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.bDelete.Location = new System.Drawing.Point(202, 27);
+            this.bDelete.Name = "bDelete";
+            this.bDelete.Size = new System.Drawing.Size(70, 43);
+            this.bDelete.TabIndex = 12;
+            this.bDelete.Text = "Delete record";
+            this.bDelete.UseVisualStyleBackColor = true;
+            this.bDelete.Click += new System.EventHandler(this.bDelete_Click);
             // 
             // gbdodajkontakt
             // 
-            this.gbdodajkontakt.Controls.Add(this.bdodajemail);
-            this.gbdodajkontakt.Controls.Add(this.tbdodajemial);
-            this.gbdodajkontakt.Controls.Add(this.ldodajemail);
+            this.gbdodajkontakt.Controls.Add(this.bAddEmail);
+            this.gbdodajkontakt.Controls.Add(this.tbAddEmail);
+            this.gbdodajkontakt.Controls.Add(this.lAddEmail);
             this.gbdodajkontakt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.gbdodajkontakt.Location = new System.Drawing.Point(4, 272);
             this.gbdodajkontakt.Name = "gbdodajkontakt";
@@ -90,43 +90,43 @@
             this.gbdodajkontakt.TabStop = false;
             this.gbdodajkontakt.Text = "Add Email:";
             // 
-            // bdodajemail
+            // bAddEmail
             // 
-            this.bdodajemail.Enabled = false;
-            this.bdodajemail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.bdodajemail.Location = new System.Drawing.Point(6, 44);
-            this.bdodajemail.Name = "bdodajemail";
-            this.bdodajemail.Size = new System.Drawing.Size(256, 28);
-            this.bdodajemail.TabIndex = 4;
-            this.bdodajemail.Text = "Add";
-            this.bdodajemail.UseVisualStyleBackColor = true;
-            this.bdodajemail.Click += new System.EventHandler(this.bdodajemail_Click);
+            this.bAddEmail.Enabled = false;
+            this.bAddEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.bAddEmail.Location = new System.Drawing.Point(6, 44);
+            this.bAddEmail.Name = "bAddEmail";
+            this.bAddEmail.Size = new System.Drawing.Size(256, 28);
+            this.bAddEmail.TabIndex = 4;
+            this.bAddEmail.Text = "Add";
+            this.bAddEmail.UseVisualStyleBackColor = true;
+            this.bAddEmail.Click += new System.EventHandler(this.bAddEmail_Click);
             // 
-            // tbdodajemial
+            // tbAddEmail
             // 
-            this.tbdodajemial.Location = new System.Drawing.Point(49, 18);
-            this.tbdodajemial.Name = "tbdodajemial";
-            this.tbdodajemial.Size = new System.Drawing.Size(213, 23);
-            this.tbdodajemial.TabIndex = 3;
-            this.tbdodajemial.Text = "np@email.pl";
-            this.tbdodajemial.TextChanged += new System.EventHandler(this.tbdodajemial_TextChanged);
+            this.tbAddEmail.Location = new System.Drawing.Point(49, 18);
+            this.tbAddEmail.Name = "tbAddEmail";
+            this.tbAddEmail.Size = new System.Drawing.Size(213, 23);
+            this.tbAddEmail.TabIndex = 3;
+            this.tbAddEmail.Text = "xyz@email.pl";
+            this.tbAddEmail.TextChanged += new System.EventHandler(this.tbAddEmail_TextChanged);
             // 
-            // ldodajemail
+            // lAddEmail
             // 
-            this.ldodajemail.AutoSize = true;
-            this.ldodajemail.Location = new System.Drawing.Point(6, 21);
-            this.ldodajemail.Name = "ldodajemail";
-            this.ldodajemail.Size = new System.Drawing.Size(46, 17);
-            this.ldodajemail.TabIndex = 2;
-            this.ldodajemail.Text = "Email:";
+            this.lAddEmail.AutoSize = true;
+            this.lAddEmail.Location = new System.Drawing.Point(6, 21);
+            this.lAddEmail.Name = "lAddEmail";
+            this.lAddEmail.Size = new System.Drawing.Size(46, 17);
+            this.lAddEmail.TabIndex = 2;
+            this.lAddEmail.Text = "Email:";
             // 
-            // lblista
+            // lbList
             // 
-            this.lblista.FormattingEnabled = true;
-            this.lblista.Location = new System.Drawing.Point(3, 27);
-            this.lblista.Name = "lblista";
-            this.lblista.Size = new System.Drawing.Size(193, 238);
-            this.lblista.TabIndex = 10;
+            this.lbList.FormattingEnabled = true;
+            this.lbList.Location = new System.Drawing.Point(3, 27);
+            this.lbList.Name = "lbList";
+            this.lbList.Size = new System.Drawing.Size(193, 238);
+            this.lbList.TabIndex = 10;
             // 
             // menuStrip1
             // 
@@ -158,11 +158,11 @@
             this.ClientSize = new System.Drawing.Size(275, 371);
             this.Controls.Add(this.pbstopka);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.bzapisz);
-            this.Controls.Add(this.bzaladujliste);
-            this.Controls.Add(this.busunpozycje);
+            this.Controls.Add(this.bSave);
+            this.Controls.Add(this.bLoadList);
+            this.Controls.Add(this.bDelete);
             this.Controls.Add(this.gbdodajkontakt);
-            this.Controls.Add(this.lblista);
+            this.Controls.Add(this.lbList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -178,14 +178,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Button bzapisz;
-        private System.Windows.Forms.Button bzaladujliste;
-        private System.Windows.Forms.Button busunpozycje;
+        private System.Windows.Forms.Button bSave;
+        private System.Windows.Forms.Button bLoadList;
+        private System.Windows.Forms.Button bDelete;
         private System.Windows.Forms.GroupBox gbdodajkontakt;
-        private System.Windows.Forms.Button bdodajemail;
-        private System.Windows.Forms.TextBox tbdodajemial;
-        private System.Windows.Forms.Label ldodajemail;
-        private System.Windows.Forms.ListBox lblista;
+        private System.Windows.Forms.Button bAddEmail;
+        private System.Windows.Forms.TextBox tbAddEmail;
+        private System.Windows.Forms.Label lAddEmail;
+        private System.Windows.Forms.ListBox lbList;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.PictureBox pbstopka;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;

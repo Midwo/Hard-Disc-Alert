@@ -38,7 +38,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.lbAlertOptions = new System.Windows.Forms.ListBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -51,12 +51,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.emailConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.cbOptionCheck = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -67,7 +68,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.pbstopka = new System.Windows.Forms.PictureBox();
-            this.listEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -123,13 +123,13 @@
             this.listBox1.Size = new System.Drawing.Size(337, 129);
             this.listBox1.TabIndex = 2;
             // 
-            // listBox2
+            // lbAlertOptions
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(6, 13);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(275, 108);
-            this.listBox2.TabIndex = 3;
+            this.lbAlertOptions.FormattingEnabled = true;
+            this.lbAlertOptions.Location = new System.Drawing.Point(6, 13);
+            this.lbAlertOptions.Name = "lbAlertOptions";
+            this.lbAlertOptions.Size = new System.Drawing.Size(275, 108);
+            this.lbAlertOptions.TabIndex = 3;
             // 
             // comboBox1
             // 
@@ -251,6 +251,13 @@
             this.emailConfigurationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.emailConfigurationToolStripMenuItem.Text = "Email Configuration";
             this.emailConfigurationToolStripMenuItem.Click += new System.EventHandler(this.emailConfigurationToolStripMenuItem_Click);
+            // 
+            // listEmailToolStripMenuItem
+            // 
+            this.listEmailToolStripMenuItem.Name = "listEmailToolStripMenuItem";
+            this.listEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.listEmailToolStripMenuItem.Text = "List Email";
+            this.listEmailToolStripMenuItem.Click += new System.EventHandler(this.listEmailToolStripMenuItem_Click);
             // 
             // comboBox2
             // 
@@ -433,7 +440,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.comboBox5);
+            this.groupBox1.Controls.Add(this.cbOptionCheck);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
@@ -460,17 +467,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Current time:";
             // 
-            // comboBox5
+            // cbOptionCheck
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
+            this.cbOptionCheck.FormattingEnabled = true;
+            this.cbOptionCheck.Items.AddRange(new object[] {
             "Appointed Time",
             "Periodically"});
-            this.comboBox5.Location = new System.Drawing.Point(6, 19);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 22;
-            this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
+            this.cbOptionCheck.Location = new System.Drawing.Point(6, 19);
+            this.cbOptionCheck.Name = "cbOptionCheck";
+            this.cbOptionCheck.Size = new System.Drawing.Size(121, 21);
+            this.cbOptionCheck.TabIndex = 22;
+            this.cbOptionCheck.SelectedIndexChanged += new System.EventHandler(this.cbOptionCheck_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -573,7 +580,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.listBox2);
+            this.groupBox5.Controls.Add(this.lbAlertOptions);
             this.groupBox5.Controls.Add(this.comboBox1);
             this.groupBox5.Controls.Add(this.button1);
             this.groupBox5.Controls.Add(this.numericUpDown1);
@@ -594,13 +601,6 @@
             this.pbstopka.Size = new System.Drawing.Size(759, 28);
             this.pbstopka.TabIndex = 22;
             this.pbstopka.TabStop = false;
-            // 
-            // listEmailToolStripMenuItem
-            // 
-            this.listEmailToolStripMenuItem.Name = "listEmailToolStripMenuItem";
-            this.listEmailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.listEmailToolStripMenuItem.Text = "List Email";
-            this.listEmailToolStripMenuItem.Click += new System.EventHandler(this.listEmailToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -651,7 +651,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox lbAlertOptions;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
@@ -671,7 +671,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox cbOptionCheck;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;

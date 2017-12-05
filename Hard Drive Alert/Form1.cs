@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -126,7 +127,7 @@ namespace Hard_Drive_Alert
             try
             {
                 DiscNameAndPercent.Add(comboBox1.Text, Convert.ToInt32(numericUpDown1.Value));
-                listBox2.Items.Add(comboBox1.SelectedItem.ToString() + " alert below: " + numericUpDown1.Value + " %");
+                lbAlertOptions.Items.Add(comboBox1.SelectedItem.ToString() + " alert below: " + numericUpDown1.Value + " %");
             }
             catch
             {
@@ -141,35 +142,68 @@ namespace Hard_Drive_Alert
 
         private void button2_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Clear();
+            lbAlertOptions.Items.Clear();
             DiscNameAndPercent.Clear();
 
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DateMonit = DateTime.Now.AddSeconds(Convert.ToDouble(numericUpDown2.Value));
-            button3.Text = "Monitored";
-            ActiveButton = true;
-            combineCombobox = comboBox2.SelectedItem + ":" + comboBox3.SelectedItem + ":" + comboBox4.SelectedItem;
+            if (lbAlertOptions.Items.Count > 0)
+            {
+                EmailConf stringListEmail = new EmailConf();
+
+                try
+                {
+                    if (stringListEmail.StringListEmail().Trim().Length > 1)
+                    {
+                        if (cbOptionCheck.SelectedIndex != -1)
+                        {
+                            DateMonit = DateTime.Now.AddSeconds(Convert.ToDouble(numericUpDown2.Value));
+                            button3.Text = "Monitored";
+                            ActiveButton = true;
+                            combineCombobox = comboBox2.SelectedItem + ":" + comboBox3.SelectedItem + ":" + comboBox4.SelectedItem;
 
 
-            Microsoft.Win32.RegistryKey key;
-            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("MD_DISC_ALERT_DATE");
-            key.SetValue("Hour", comboBox2.SelectedItem);
-            key.SetValue("Minute", comboBox3.SelectedItem);
-            key.SetValue("Second", comboBox4.SelectedItem);
-            key.SetValue("NumericMinute", numericUpDown2.Value);
-            key.Close();
-            EmailConf xy = new EmailConf();
-           
-            MessageBox.Show(xy.StringListEmail());
+                            Microsoft.Win32.RegistryKey key;
+                            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("MD_DISC_ALERT_DATE");
+                            key.SetValue("Hour", comboBox2.SelectedItem);
+                            key.SetValue("Minute", comboBox3.SelectedItem);
+                            key.SetValue("Second", comboBox4.SelectedItem);
+                            key.SetValue("NumericMinute", numericUpDown2.Value);
+                            key.Close();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("You must select 'Options - When to check the disc'", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("You must load emial list and save IT!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("You must load emial list and save IT!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("You must add Alert Options!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+
+   
         
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //label2.Text = System.DateTime.Now.ToLongTimeString();
+            label2.Text = DateTime.Now.ToLongTimeString();
             //if (ActiveButton == true)
             //{
             //    if (System.DateTime.Now.ToLongTimeString() == textBox1.Text)
@@ -180,30 +214,154 @@ namespace Hard_Drive_Alert
             //}
 
 
-            //label2.Text = DateTime.Now.ToLongTimeString();
-            //if (ActiveButton == true)
-            //{
-            //    if (DateMonit <= DateTime.Now)
-            //    {
-            //        DateMonit = DateTime.Now.AddSeconds(Convert.ToDouble(numericUpDown2.Value));
-            //        MessageBox.Show("To small hard disc");
-
-
-            //    }
-            //}
-
-           
-            
-            label2.Text = System.DateTime.Now.ToLongTimeString();
             if (ActiveButton == true)
             {
-                if (System.DateTime.Now.ToLongTimeString() == combineCombobox)
-                {
 
-                    MessageBox.Show("To small hard disc");
+                if (cbOptionCheck.SelectedIndex == 0)
+                {
+                    DateTime changeCombine = DateTime.Parse((DateMonit.ToString("dd/MM/yyyy") + " " + combineCombobox));
+
+                    if (changeCombine <= DateTime.Now)
+                    {
+                        DateMonit = DateTime.Parse((DateTime.Now.AddDays(1).ToString("dd/MM/yyyy") + " " + combineCombobox));
+
+                        DriveInfo[] yDrvs = DriveInfo.GetDrives();
+                        foreach (var Drv in yDrvs)
+                        {
+                            if (Drv.IsReady)
+                            {
+
+                                if (!DiscNameAndPercent.TryGetValue("" + Drv.Name + "", out int actualValue))
+                                {
+                                    // We don't have this disc : )
+                                }
+                                else
+                                {
+
+
+                                    if ((((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024)) * 100) <= (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""])))
+                                    {
+                                        //  MessageBox.Show("" + (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""]) + ""));
+                                    }//["" + Drv.Name.Substring(0, Drv.Name.Length - 1) + ""]
+                                    else
+                                    {
+                                        try
+                                        {
+                                            Microsoft.Win32.RegistryKey key;
+                                            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("MD_DISC_ALERT_DATE");
+
+                                            MessageBox.Show("wysyłamy wiadomość na temat dysku: " + Drv.Name + "");
+                                            int port = Int32.Parse(key.GetValue("Port").ToString());
+                                            SmtpClient mailServer = new SmtpClient(key.GetValue("SMTP").ToString(), port);
+                                            mailServer.EnableSsl = true;
+
+                                            mailServer.Credentials = new System.Net.NetworkCredential(key.GetValue("Name").ToString(), key.GetValue("Password").ToString());
+
+                                            MailMessage msg = new MailMessage();
+                                            msg.From = new MailAddress(key.GetValue("Name").ToString(), key.GetValue("Signature").ToString());
+
+                                            EmailConf stringListEmail = new EmailConf();
+                                            string emaile = stringListEmail.ToString();
+
+
+                                            foreach (string email in EmailConf.ListEmail)
+                                            {
+                                                msg.To.Add(email);
+                                            }
+
+
+                                            msg.Subject = "Ticket - Warning Server - low capacity";
+                                            msg.Body = "Welcome, there is not enough disk space: " + Drv.Name + " ";
+
+                                            mailServer.Send(msg);
+
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    if (DateMonit <= DateTime.Now)
+                    {
+                        DateMonit = DateTime.Now.AddMinutes(Convert.ToDouble(numericUpDown2.Value));
+
+
+                        DriveInfo[] yDrvs = DriveInfo.GetDrives();
+                        foreach (var Drv in yDrvs)
+                        {
+                            if (Drv.IsReady)
+                            {
+
+                                if (!DiscNameAndPercent.TryGetValue("" + Drv.Name + "", out int actualValue))
+                                {
+                                    // We don't have this disc : )
+                                }
+                                else
+                                {
+
+
+                                    if ((((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024)) * 100) <= (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""])))
+                                    {
+                                        //  MessageBox.Show("" + (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""]) + ""));
+                                    }//["" + Drv.Name.Substring(0, Drv.Name.Length - 1) + ""]
+                                    else
+                                    {
+                                        try
+                                        {
+                                            Microsoft.Win32.RegistryKey key;
+                                            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("MD_DISC_ALERT_DATE");
+
+                                            MessageBox.Show("wysyłamy wiadomość na temat dysku: " + Drv.Name + "");
+                                            int port = Int32.Parse(key.GetValue("Port").ToString());
+                                            SmtpClient mailServer = new SmtpClient(key.GetValue("SMTP").ToString(), port);
+                                            mailServer.EnableSsl = true;
+
+                                            mailServer.Credentials = new System.Net.NetworkCredential(key.GetValue("Name").ToString(), key.GetValue("Password").ToString());
+
+                                            MailMessage msg = new MailMessage();
+                                            msg.From = new MailAddress(key.GetValue("Name").ToString(), key.GetValue("Signature").ToString());
+
+                                            EmailConf stringListEmail = new EmailConf();
+                                            string emaile = stringListEmail.ToString();
+
+
+                                            foreach (string email in EmailConf.ListEmail)
+                                            {
+                                                msg.To.Add(email);
+                                            }
+
+
+                                            msg.Subject = "Ticket - Warning Server - low capacity";
+                                            msg.Body = "Welcome, there is not enough disk space: " + Drv.Name + " ";
+
+                                            mailServer.Send(msg);
+
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+
+                                }
+                            }
+                        
+                    }
                 }
             }
+            }
 
+    
 
 
         }
@@ -217,31 +375,7 @@ namespace Hard_Drive_Alert
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox5.SelectedIndex == 0)
-            {
-                comboBox2.Enabled = true;
-                comboBox3.Enabled = true;
-                comboBox4.Enabled = true;
-                label3.Enabled = true;
-                label4.Enabled = true;
-                label5.Enabled = true;
-                numericUpDown2.Enabled = false;
-                label6.Enabled = false;
-                label7.Enabled = false;
-
-            }
-            else if (comboBox5.SelectedIndex == 1)
-            {
-                comboBox2.Enabled = false;
-                comboBox3.Enabled = false;
-                comboBox4.Enabled = false;
-                numericUpDown2.Enabled = true;
-                label6.Enabled = true;
-                label7.Enabled = true;
-                label3.Enabled = false;
-                label4.Enabled = false;
-                label5.Enabled = false;
-            }
+        
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -274,6 +408,35 @@ namespace Hard_Drive_Alert
         {
             ListEmail m = new ListEmail();
             m.Show();
+        }
+
+        private void cbOptionCheck_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbOptionCheck.SelectedIndex == 0)
+            {
+                comboBox2.Enabled = true;
+                comboBox3.Enabled = true;
+                comboBox4.Enabled = true;
+                label3.Enabled = true;
+                label4.Enabled = true;
+                label5.Enabled = true;
+                numericUpDown2.Enabled = false;
+                label6.Enabled = false;
+                label7.Enabled = false;
+
+            }
+            else if (cbOptionCheck.SelectedIndex == 1)
+            {
+                comboBox2.Enabled = false;
+                comboBox3.Enabled = false;
+                comboBox4.Enabled = false;
+                numericUpDown2.Enabled = true;
+                label6.Enabled = true;
+                label7.Enabled = true;
+                label3.Enabled = false;
+                label4.Enabled = false;
+                label5.Enabled = false;
+            }
         }
     }
 }
