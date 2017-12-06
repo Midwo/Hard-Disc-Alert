@@ -24,8 +24,9 @@ namespace Hard_Drive_Alert
             timer1.Start();
             Microsoft.Win32.RegistryKey key;
             key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("MD_DISC_ALERT_DATE");
+            Reflesh = DateTime.Now;
 
-  
+
             try
             {
                 if (key.GetValue("Hour").ToString() != string.Empty || key.GetValue("Minute").ToString() != string.Empty || key.GetValue("Second").ToString() != string.Empty)
@@ -79,7 +80,7 @@ namespace Hard_Drive_Alert
         bool ActiveButton = false;
         DateTime DateMonit;
         string combineCombobox;
-
+        DateTime Reflesh;
         private void menuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
@@ -212,7 +213,25 @@ namespace Hard_Drive_Alert
             //        MessageBox.Show("To small hard disc");
             //    }
             //}
+            if (DateTime.Now > Reflesh)
+            {
+                Reflesh = DateTime.Now.AddSeconds(5);
+                DriveInfo[] refleshDrvs = DriveInfo.GetDrives();
+                listBox1.Items.Clear();
+                foreach (var Drv in refleshDrvs)
+                {
+                    if (Drv.IsReady)
+                    {
+                        listBox1.Items.Add("Disc name: " + Drv.Name + " available: " + (Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024).ToString("n2") +
+                            " GB with " + (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024).ToString("n2") + " GB, this is: "
+                            + (((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024)) * 100).ToString("n2") + "%");
+                    }
+                }
+            }
+                
+                
 
+            
 
             if (ActiveButton == true)
             {
