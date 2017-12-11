@@ -86,7 +86,7 @@
             this.gbdodajkontakt.Controls.Add(this.tbAddEmail);
             this.gbdodajkontakt.Controls.Add(this.lAddEmail);
             this.gbdodajkontakt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.gbdodajkontakt.Location = new System.Drawing.Point(4, 272);
+            this.gbdodajkontakt.Location = new System.Drawing.Point(4, 267);
             this.gbdodajkontakt.Name = "gbdodajkontakt";
             this.gbdodajkontakt.Size = new System.Drawing.Size(268, 77);
             this.gbdodajkontakt.TabIndex = 11;
