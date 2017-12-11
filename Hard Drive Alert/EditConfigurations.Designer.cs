@@ -177,7 +177,7 @@
             this.menuStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(529, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(528, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -192,13 +192,14 @@
             // 
             // bSave
             // 
+            this.bSave.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.bSave.Location = new System.Drawing.Point(332, 99);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(194, 30);
             this.bSave.TabIndex = 11;
             this.bSave.Text = "Save";
-            this.bSave.UseVisualStyleBackColor = true;
+            this.bSave.UseVisualStyleBackColor = false;
             this.bSave.Click += new System.EventHandler(this.bSave_Click);
             // 
             // EditConfigurations
@@ -206,7 +207,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(529, 159);
+            this.ClientSize = new System.Drawing.Size(528, 159);
             this.Controls.Add(this.bSave);
             this.Controls.Add(this.pbstopka);
             this.Controls.Add(this.menuStrip1);

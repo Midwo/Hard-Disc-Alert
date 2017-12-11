@@ -134,7 +134,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(145, 135);
+            this.comboBox1.Location = new System.Drawing.Point(136, 132);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(91, 21);
             this.comboBox1.TabIndex = 4;
@@ -143,7 +143,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(34, 134);
+            this.button1.Location = new System.Drawing.Point(25, 131);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(104, 23);
             this.button1.TabIndex = 5;
@@ -153,7 +153,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(241, 136);
+            this.numericUpDown1.Location = new System.Drawing.Point(232, 133);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -171,7 +171,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(293, 139);
+            this.label1.Location = new System.Drawing.Point(284, 136);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(15, 13);
             this.label1.TabIndex = 7;
@@ -189,12 +189,13 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button2.Location = new System.Drawing.Point(287, 13);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(87, 108);
             this.button2.TabIndex = 9;
             this.button2.Text = "Clear";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // timer1
@@ -204,12 +205,13 @@
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button3.Location = new System.Drawing.Point(5, 319);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(343, 26);
             this.button3.TabIndex = 10;
             this.button3.Text = "Run monitoring";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // numericUpDown2

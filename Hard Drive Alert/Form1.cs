@@ -258,7 +258,7 @@ namespace Hard_Drive_Alert
                                 {
 
 
-                                    if ((((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024)) * 100) <= (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""])))
+                                    if ((((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024)) * 100) >= (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""])))
                                     {
                                         //  MessageBox.Show("" + (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""]) + ""));
                                     }//["" + Drv.Name.Substring(0, Drv.Name.Length - 1) + ""]
@@ -329,7 +329,7 @@ namespace Hard_Drive_Alert
                                 {
 
 
-                                    if ((((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024)) * 100) <= (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""])))
+                                    if ((((Convert.ToDecimal(Drv.AvailableFreeSpace) / 1024 / 1024 / 1024) / (Convert.ToDecimal(Drv.TotalSize) / 1024 / 1024 / 1024)) * 100) >= (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""])))
                                     {
                                         //  MessageBox.Show("" + (Convert.ToDecimal(DiscNameAndPercent["" + Drv.Name + ""]) + ""));
                                     }//["" + Drv.Name.Substring(0, Drv.Name.Length - 1) + ""]

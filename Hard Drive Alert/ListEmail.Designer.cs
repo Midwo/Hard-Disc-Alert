@@ -46,35 +46,38 @@
             // 
             // bSave
             // 
+            this.bSave.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.bSave.Location = new System.Drawing.Point(202, 125);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(70, 43);
             this.bSave.TabIndex = 14;
             this.bSave.Text = "Save";
-            this.bSave.UseVisualStyleBackColor = true;
+            this.bSave.UseVisualStyleBackColor = false;
             this.bSave.Click += new System.EventHandler(this.bSave_Click);
             // 
             // bLoadList
             // 
+            this.bLoadList.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bLoadList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.bLoadList.Location = new System.Drawing.Point(202, 76);
             this.bLoadList.Name = "bLoadList";
             this.bLoadList.Size = new System.Drawing.Size(70, 43);
             this.bLoadList.TabIndex = 13;
             this.bLoadList.Text = "Load List";
-            this.bLoadList.UseVisualStyleBackColor = true;
+            this.bLoadList.UseVisualStyleBackColor = false;
             this.bLoadList.Click += new System.EventHandler(this.bLoadList_Click);
             // 
             // bDelete
             // 
+            this.bDelete.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.bDelete.Location = new System.Drawing.Point(202, 27);
             this.bDelete.Name = "bDelete";
             this.bDelete.Size = new System.Drawing.Size(70, 43);
             this.bDelete.TabIndex = 12;
             this.bDelete.Text = "Delete record";
-            this.bDelete.UseVisualStyleBackColor = true;
+            this.bDelete.UseVisualStyleBackColor = false;
             this.bDelete.Click += new System.EventHandler(this.bDelete_Click);
             // 
             // gbdodajkontakt
@@ -92,6 +95,7 @@
             // 
             // bAddEmail
             // 
+            this.bAddEmail.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddEmail.Enabled = false;
             this.bAddEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.bAddEmail.Location = new System.Drawing.Point(6, 44);
@@ -99,7 +103,7 @@
             this.bAddEmail.Size = new System.Drawing.Size(256, 28);
             this.bAddEmail.TabIndex = 4;
             this.bAddEmail.Text = "Add";
-            this.bAddEmail.UseVisualStyleBackColor = true;
+            this.bAddEmail.UseVisualStyleBackColor = false;
             this.bAddEmail.Click += new System.EventHandler(this.bAddEmail_Click);
             // 
             // tbAddEmail
@@ -133,7 +137,7 @@
             this.menuStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(275, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(278, 24);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -155,7 +159,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(275, 371);
+            this.ClientSize = new System.Drawing.Size(278, 371);
             this.Controls.Add(this.pbstopka);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.bSave);
